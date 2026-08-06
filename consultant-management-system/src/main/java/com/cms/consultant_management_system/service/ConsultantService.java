@@ -6,12 +6,15 @@ import com.cms.consultant_management_system.exception.ConsultantNotFoundExceptio
 import com.cms.consultant_management_system.exception.DuplicateEmailException;
 import com.cms.consultant_management_system.repository.ConsultantRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -93,4 +96,11 @@ public class ConsultantService {
         LocalDateTime startOfMonth = LocalDate.now().withDayOfMonth(1).atStartOfDay();
         return repository.countByCreatedAtAfter(startOfMonth);
     }
+
+    public List<Consultant> findLatest(int count) {
+        return repository.findAll(
+                PageRequest.of(0, count, Sort.by(Sort.Direction.DESC, "id"))
+        ).getContent();
+    }
+
 }

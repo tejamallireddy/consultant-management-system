@@ -60,6 +60,16 @@ public class Consultant {
 
     public Consultant() { }
 
+    public Consultant(String name, String email, String phone,
+                      String technology, Integer experience, Status status) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.technology = technology;
+        this.experience = experience;
+        this.status = status;
+    }
+
     public Long getId() {
         return id;
     }

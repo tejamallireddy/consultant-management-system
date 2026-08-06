@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Consultant Form', ~{::content})}">
+<body>
+<div th:fragment="content">
+
+    <div class="row justify-content-center">
+        <div class="col-lg-7">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title mb-4"
+                        th:text="${consultant.id} == null ? 'Add Consultant' : 'Update Consultant'"></h4>
+
+                    <form th:action="${consultant.id} == null
+                                     ? @{/consultants}
+                                     : @{/consultants/{id}(id=${consultant.id})}"
+                          th:object="${consultant}" method="post" novalidate>
+
+                        <div class="mb-3">
+                            <label class="form-label">Name</label>
+                            <input type="text" th:field="*{name}" class="form-control"
+                                   th:classappend="${#fields.hasErrors('name')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{name}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="text" th:field="*{email}" class="form-control"
+                                   th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{email}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="text" th:field="*{phone}" class="form-control"
+                                   th:classappend="${#fields.hasErrors('phone')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{phone}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Technology</label>
+                            <input type="text" th:field="*{technology}" class="form-control"
+                                   placeholder="e.g. Java, Spring Boot"
+                                   th:classappend="${#fields.hasErrors('technology')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{technology}"></div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Experience (Years)</label>
+                            <input type="number" th:field="*{experience}" class="form-control"
+                                   th:classappend="${#fields.hasErrors('experience')} ? 'is-invalid'">
+                            <div class="invalid-feedback" th:errors="*{experience}"></div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="form-label">Status</label>
+                            <select th:field="*{status}" class="form-select">
+                                <option th:each="s : ${statuses}"
+                                        th:value="${s}" th:text="${s.label}"></option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success">Save</button>
+                        <a th:href="@{/consultants}" class="btn btn-secondary">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      th:replace="~{layout :: page('Error', ~{::content})}">
+<body>
+<div th:fragment="content">
+
+    <div class="row justify-content-center">
+        <div class="col-md-7 col-lg-6">
+            <div class="card border-danger-subtle">
+                <div class="card-body text-center p-5">
+
+                    <i class="bi bi-exclamation-triangle-fill text-warning" style="font-size:4rem;"></i>
+
+                    <h1 class="display-4 fw-bold mt-3 mb-0"
+                        th:text="${status} ?: 'Error'">500</h1>
+                    <h4 class="mb-3" th:text="${title} ?: 'Something Went Wrong'">Something Went Wrong</h4>
+
+                    <p class="text-muted"
+                       th:text="${message} ?: 'An unexpected error occurred.'">Details</p>
+
+                    <div class="d-flex justify-content-center gap-2 mt-4">
+                        <a th:href="@{/dashboard}" class="btn btn-primary">Back to Dashboard</a>
+                        <a th:href="@{/consultants}" class="btn btn-outline-secondary">View Consultants</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
